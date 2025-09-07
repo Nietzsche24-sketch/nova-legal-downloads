@@ -1,0 +1,9 @@
+{
+  "anchor": "README_FOR_AI.txt",
+  "latest_tag": "v2025.09.07-app3",
+  "release_assets": [
+    "smith_full_bundle.zip",
+    "smith_review.zip",
+    "SHA256SUMS.txt"
+  ]
+}

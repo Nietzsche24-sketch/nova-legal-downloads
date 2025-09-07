@@ -1,82 +1,35 @@
-# Tachyon Anchor
+# NovaLegal Atlas — Tachyon Anchor
 
-# NovaLegal Tachyon Anchor
+Court-ready and searchable Ontario Application Record bundles (Atlas-grade).
+One-click release pipeline, conservative validation, GitHub-hosted artifacts.
 
-This file tracks all releases (Atlas bundles) in chronological order.
-Each entry includes tag, assets, verification, and notes.
+## Current Release
+- Tag: `v2025.09.07-app3`
+- Title: *Smith v Ontario — Application Record*
+- Artifacts: `smith_full_bundle.zip`, `smith_review.zip`, `SHA256SUMS.txt`
 
----
-## Release: Smith v Ontario — Application Record
-**Tag**: v2025.09.07-app3  
-**Date**: 2025-09-07  
-**Bundles**:  
-- smith_full_bundle.zip — Court bundle + Searchable bundle + README  
-- smith_review.zip — Searchable-only + README  
+## One-Click Release
+Run this from the folder with your _deliverables:
+nova_release "Smith v Ontario — Application Record" appX ~/Desktop/atlas_test/_deliverables
 
-**Checksums**:  
-- SHA256SUMS.txt uploaded with both ZIPs  
+## Verify a release from GitHub
+TAG=v2025.09.07-app3
+BASE="https://github.com/Nietzsche24-sketch/nova-legal-downloads/releases/download/$TAG"
 
-**Verification**:  
-- Both zips passed checksum validation (`shasum -a 256 -c`)  
+mkdir -p ~/tmp/release-check && cd ~/tmp/release-check
+curl -LO "$BASE/smith_full_bundle.zip"
+curl -LO "$BASE/smith_review.zip"
+curl -LO "$BASE/SHA256SUMS.txt"
 
-**Notes**:  
-- Court bundle = index on page 1 (file this one)  
-- Searchable bundle = for reading/searching only  
-- Release automated via `nova_release` function  
+# Keep only the Smith zip rows, normalize spacing to "SHA  filename"
+grep 'smith_.*\.zip' SHA256SUMS.txt > SHA256SUMS.smith.txt
+awk '{print $1"  "$2}' SHA256SUMS.smith.txt > SHA256SUMS.fixed
 
-This file helps us (AI + Peter) remember the release process.
+# Check
+shasum -a 256 -c SHA256SUMS.fixed
 
-- Repo: nova-legal-downloads
-- Last release: Smith v Ontario — Application Record
-- Workflow: nova_release → upload → verify checksums → push → publish
-- Checkpoint date: Sun  7 Sep 2025 04:01:41 EDT
-
-
-## Release Summary (Smith v Ontario — Application Record)
-
-- **Tag**: v2025.09.07-app3  
-- **Bundles**:
-  - smith_full_bundle.zip — Court bundle + Searchable bundle + README  
-  - smith_review.zip — Searchable-only + README  
-- **Checksums**:
-  - SHA256SUMS.txt uploaded with both ZIPs  
-- **Verification**:
-  - Both zips passed checksum validation (`shasum -a 256 -c`)  
-- **Notes**:
-  - Court bundle = index on page 1 (file this one)  
-  - Searchable bundle = for reading/searching only  
-  - Release automated via `nova_release` function  
----
-
-## Release: [ClientName] — Application Record
-**Tag**: vYYYY.MM.DD-appX  
-**Date**: YYYY-MM-DD  
-**Bundles**:  
-- [client]_full_bundle.zip — Court bundle + Searchable bundle + README  
-- [client]_review.zip — Searchable-only + README  
-
-**Checksums**:  
-- SHA256SUMS.txt uploaded with both ZIPs  
-
-**Verification**:  
-- [Pass/Fail] checksum validation (`shasum -a 256 -c`)  
-
-**Notes**:  
-- Court bundle = index on page 1 (file this one)  
-- Searchable bundle = for reading/searching only  
-- Release automated via `nova_release` function  
-
----
-## ⏺ Flight log — 2025-09-07T08:11:32Z
-- repo: https://github.com/Nietzsche24-sketch/nova-legal-downloads
-- branch: main @ 0df288d
-- tag: v2025.09.07-appX
-- title: Smith v Ontario — Application Record
-- release_page: https://github.com/Nietzsche24-sketch/nova-legal-downloads/releases/tag/v2025.09.07-appX
-- assets:
-  - full: client_full_bundle.zip
-  - review: client_review.zip
-  - sha: SHA256SUMS.txt
-
-> quick revive: run `cat README_FOR_AI.txt` and give it to the AI.
----
+## Gotchas
+- Harmless qpdf warnings like “unexpected EOF” can appear.
+- Prefer `qpdf --linearize` before zipping.
+- Ghostscript pstopdf shim is in place.
+- Deliverables always include [court + searchable + README].
