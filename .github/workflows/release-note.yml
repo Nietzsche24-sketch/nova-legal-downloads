@@ -1,0 +1,29 @@
+name: Comment download links on release
+on:
+  release:
+    types: [published, edited]
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build comment
+        id: msg
+        run: |
+          ASSETS_JSON="${{ toJson(github.event.release.assets) }}"
+          LINKS=$(echo "$ASSETS_JSON" | jq -r '.[].browser_download_url')
+          {
+            echo "### Direct downloads"
+            echo ""
+            echo "$LINKS" | sed 's#^#- #'
+          } > body.md
+      - name: Post comment on release discussion
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.release.discussion?.number || '' }}
+          issue: false
+          body-path: body.md
+        continue-on-error: true
