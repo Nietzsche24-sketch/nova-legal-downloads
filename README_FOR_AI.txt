@@ -46,3 +46,22 @@ This file helps us (AI + Peter) remember the release process.
   - Court bundle = index on page 1 (file this one)  
   - Searchable bundle = for reading/searching only  
   - Release automated via `nova_release` function  
+---
+
+## Release: [ClientName] — Application Record
+**Tag**: vYYYY.MM.DD-appX  
+**Date**: YYYY-MM-DD  
+**Bundles**:  
+- [client]_full_bundle.zip — Court bundle + Searchable bundle + README  
+- [client]_review.zip — Searchable-only + README  
+
+**Checksums**:  
+- SHA256SUMS.txt uploaded with both ZIPs  
+
+**Verification**:  
+- [Pass/Fail] checksum validation (`shasum -a 256 -c`)  
+
+**Notes**:  
+- Court bundle = index on page 1 (file this one)  
+- Searchable bundle = for reading/searching only  
+- Release automated via `nova_release` function  
