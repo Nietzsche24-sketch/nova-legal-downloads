@@ -65,3 +65,18 @@ This file helps us (AI + Peter) remember the release process.
 - Court bundle = index on page 1 (file this one)  
 - Searchable bundle = for reading/searching only  
 - Release automated via `nova_release` function  
+
+---
+## ⏺ Flight log — 2025-09-07T08:11:32Z
+- repo: https://github.com/Nietzsche24-sketch/nova-legal-downloads
+- branch: main @ 0df288d
+- tag: v2025.09.07-appX
+- title: Smith v Ontario — Application Record
+- release_page: https://github.com/Nietzsche24-sketch/nova-legal-downloads/releases/tag/v2025.09.07-appX
+- assets:
+  - full: client_full_bundle.zip
+  - review: client_review.zip
+  - sha: SHA256SUMS.txt
+
+> quick revive: run `cat README_FOR_AI.txt` and give it to the AI.
+---
